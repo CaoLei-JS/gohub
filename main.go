@@ -20,6 +20,7 @@ func main() {
 	flag.Parse()
 	config.InitConfig(env)
 	r := gin.New()
+	bootstrap.SetupDB()
 	bootstrap.SetRoute(r)
 	// 运行服务
 	err := r.Run(":3000")
