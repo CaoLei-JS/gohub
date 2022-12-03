@@ -23,7 +23,7 @@ func main() {
 	bootstrap.SetupDB()
 	bootstrap.SetRoute(r)
 	// 运行服务
-	err := r.Run(":3000")
+	err := r.Run(":3001")
 	if err != nil {
 		// 错误处理，端口被占用了或者其他错误
 		fmt.Println(err.Error())
