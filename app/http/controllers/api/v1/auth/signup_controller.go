@@ -15,7 +15,6 @@ type SignupController struct {
 
 func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 
-
 	request := requests.SignupPhoneExistRequest{}
 
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -26,7 +25,7 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 		return
 	}
 	errs := requests.ValidSignupPhoneExist(&request, c)
-	if len(errs) >0 {
+	if len(errs) > 0 {
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
 			"error": errs,
 		})
@@ -36,4 +35,26 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 		"exist": user.IsPhoneExist(request.Phone),
 	})
 
+}
+
+func (sc *SignupController) IsEmailExist(c *gin.Context) {
+	request := requests.SignupEmailExistRequest{}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
+			"error": err.Error(),
+		})
+		fmt.Println(err.Error())
+		return
+	}
+	errs := requests.ValidateSignupEmailExist(&request, c)
+	if len(errs) > 0 {
+		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
+			"error": errs,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"exist": user.IsEmailExist(request.Email),
+	})
 }
