@@ -29,6 +29,7 @@ func main() {
 	r := gin.New()
 	bootstrap.SetupDB()
 	bootstrap.SetRoute(r)
+	bootstrap.SetupRedis()
 	// 运行服务
 	err := r.Run(":3001")
 	if err != nil {
